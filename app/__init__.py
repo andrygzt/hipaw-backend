@@ -13,6 +13,14 @@ def create_app():
     app = Flask(__name__)
     app.config["SQALCHEMY_TRACK_MODIFICATIONS"] = False
 
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI")
+
+
+    from app.models.post import Post
+    from app.models.user import User
+    from app.models.pet import Pet
+
     db.init_app(app)
     migrate.init_app(app, db)
 
