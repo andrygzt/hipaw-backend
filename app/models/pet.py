@@ -13,5 +13,6 @@ def to_dict(self):
         return {
             'id': self.id,
             'name': self.name,
-            'detail': self.detail
+            'detail': self.detail,
+            'photo':self.photo
         }
