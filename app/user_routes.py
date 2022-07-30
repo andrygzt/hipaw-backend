@@ -6,7 +6,7 @@ from app.models.user import User
 from .post_routes import Post
 from .pet_routes import Pet
 
-user_bp = Blueprint('user_bp', __name__, url_prefix='/user_id')
+user_bp = Blueprint('user_bp', __name__, url_prefix='/users')
 
 
 #Validation
@@ -23,7 +23,32 @@ def validate_user(user_id):
     return user
 
 #GET user
-@user_bp.route('', methods =['GET'])
+@user_bp.route('/<user_id>', methods =['GET'])
 def get_user(user_id):
     user= validate_user(user_id)
     return jsonify(user.to_dict()), 200
+
+#Create a Post
+@user_bp.route('/<user_id>/post', methods =['POST'])
+def create_post(user_id):
+    user = validate_user(user_id)
+
+    request_body= request.get_json()
+    new_post=Post(
+        title=request_body['title'],
+        description=request_body['description'],
+        image=request_body['image'],
+        pet_id=request_body['pet_id']
+        )
+
+    db.session.add(new_post)
+    user.post.append(new_post)
+    db.session.commit()
+
+    return jsonify({
+        'post_id': new_post.post_id,
+        'title': new_post.title,
+        'image':new_post.image,
+        'pet_id':new_post.pet_id,
+        'user_id': user.user_id
+    }), 201

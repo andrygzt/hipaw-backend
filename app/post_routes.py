@@ -38,3 +38,6 @@ def get_all_posts():
 def get_post(post_id):
     post= validate_post(post_id)
     return jsonify(post.to_dict()), 200
+
+
+
