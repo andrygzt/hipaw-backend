@@ -13,9 +13,12 @@ class Post(db.Model):
     reference_post = db.relationship('Post', back_populates='post', lazy=True)
 
     def to_dict(self):
-        card_dict = {
+        return {
             'id' : self.post_id,
             'title': self.title,
             'description': self.description,
-            'image': self.image
+            'image': self.image,
+            'pet_id': self.pet_id,
+            'user_id': self.user_id
         }
+        
