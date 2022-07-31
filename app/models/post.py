@@ -9,6 +9,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeingKey('user.user_id'), nullable=False)
     pet= db.relationship('Pet', back_populates='posts', lazy=True)
     pet_id = db.Column(db.Integer, db.ForeingKey('pet.pet_id'), nullable=False)
+    is_claim=db.Column(db.Bool, nullable=False)
     reference_post_id = db.Colummn(db.Integer, db.ForeingKey('post.post_id'), nullable=True)
     reference_post = db.relationship('Post', back_populates='post', lazy=True)
 
@@ -19,6 +20,7 @@ class Post(db.Model):
             'description': self.description,
             'image': self.image,
             'pet_id': self.pet_id,
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'is_claim':self.is_claim
         }
         

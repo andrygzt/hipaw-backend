@@ -14,5 +14,6 @@ def to_dict(self):
             'id': self.id,
             'name': self.name,
             'detail': self.detail,
-            'photo':self.photo
+            'photo':self.photo,
+            'type':self.type
         }

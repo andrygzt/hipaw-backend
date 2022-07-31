@@ -38,7 +38,9 @@ def create_post(user_id):
         title=request_body['title'],
         description=request_body['description'],
         image=request_body['image'],
-        pet_id=request_body['pet_id']
+        pet_id=request_body['pet_id'],
+        is_claim=request_body['is_claim'],
+        reference_post_id=request_body['reference_post_id']
         )
 
     db.session.add(new_post)
@@ -50,5 +52,23 @@ def create_post(user_id):
         'title': new_post.title,
         'image':new_post.image,
         'pet_id':new_post.pet_id,
-        'user_id': user.user_id
+        'user_id': user.user_id,
+        'is_claim':new_post.is_claim,
+        'reference_post_id':new_post.reference_post_id
     }), 201
+
+#GET all pets from user
+@user_bp.route('/<user_id>/pets', methods =['GET'])
+def get_user_pets(user_id):
+    user = validate_user(user_id)
+
+    pets_response =[]
+    for pet in user.pets:
+        pets_response.append(pet.to_dict())
+    
+    return jsonify({
+        'user_id':user.user_id,
+        'name':user.name,
+        'pets':pets_response
+        }), 200
+  

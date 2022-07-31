@@ -25,7 +25,7 @@ def validate_post(post_id):
 #GET all posts
 @post_bp.route('', methods =['GET'])
 def get_all_posts():
-    posts=post.query.all()
+    posts=Post.query.all()
 
     posts_response =[]
     for post in posts:
@@ -38,6 +38,33 @@ def get_all_posts():
 def get_post(post_id):
     post= validate_post(post_id)
     return jsonify(post.to_dict()), 200
+
+  #Update a Post
+@post_bp.route('/<post_id>', methods =['PATCH'])
+def update_post(post_id):
+    post=validate_post(post_id)
+    request_body=request.get_json()
+    
+    post.title=request_body['title']
+    post.description=request_body['description']
+    post.image=request_body['image']
+    post.pet_id=request_body['pet_id']
+    post.user_id=request_body['user_id']
+    
+    db.session.commit()
+    return jsonify(f'Post {post_id} updated'), 200
+
+
+
+#Delete Post
+@post_bp.route('/<post_id>', methods =['DELETE'])
+def delete_post(post_id):
+    post=validate_post(post_id)
+    
+    db.session.delete(post)
+    db.session.commit()
+
+    return{'details': f'Post {post_id} was successfully deleted'}, 200
 
 
 
