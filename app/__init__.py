@@ -21,6 +21,15 @@ def create_app():
     from app.models.user import User
     from app.models.pet import Pet
 
+    from .pet_routes import pet_bp
+    app.register_blueprint(pet_bp)
+
+    from .user_routes import user_bp
+    app.register_blueprint(user_bp)
+
+    from .post_routes import post_bp
+    app.register_blueprint(post_bp)
+
     db.init_app(app)
     migrate.init_app(app, db)
 
