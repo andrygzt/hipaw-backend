@@ -4,14 +4,15 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True, autoincrement =True)
     title = db.Column(db.String)
     description = db.Column(db.String)
-    image = db.Column(db.bytea)
-    user = db.relationship('User', back_populates='posts', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeingKey('user.user_id'), nullable=False)
+    image = db.Column(db.LargeBinary, nullable=True)
+    human = db.relationship('Human', back_populates='posts', lazy=True)
+    human_id = db.Column(db.Integer, db.ForeignKey('human.human_id'), nullable=False)
     pet= db.relationship('Pet', back_populates='posts', lazy=True)
-    pet_id = db.Column(db.Integer, db.ForeingKey('pet.pet_id'), nullable=False)
-    is_claim=db.Column(db.Bool, nullable=False)
-    reference_post_id = db.Colummn(db.Integer, db.ForeingKey('post.post_id'), nullable=True)
-    reference_post = db.relationship('Post', back_populates='post', lazy=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey('pet.pet_id'), nullable=False)
+    is_claim=db.Column(db.Boolean, nullable=False)
+    reference_post_id = db.Column(db.Integer, db.ForeignKey('post.post_id'), nullable=True)
+    reference_post = db.relationship('Post', back_populates='claim', lazy=True)
+    claim= db.relationship('Post', lazy=True)
 
     def to_dict(self):
         return {
@@ -20,7 +21,8 @@ class Post(db.Model):
             'description': self.description,
             'image': self.image,
             'pet_id': self.pet_id,
-            'user_id': self.user_id,
-            'is_claim':self.is_claim
+            'human_id': self.human_id,
+            'is_claim':self.is_claim,
+            'reference_port_id':self.reference_post_id,
         }
         

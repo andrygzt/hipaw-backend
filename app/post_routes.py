@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify, make_response, abort
 from sqlalchemy import func
 from app import db
 from app.models.post import Post
-from .user_routes import User
+from .human_routes import Human
 from .pet_routes import Pet
 
 post_bp = Blueprint('post_bp', __name__, url_prefix='/posts')
@@ -39,22 +39,26 @@ def get_post(post_id):
     post= validate_post(post_id)
     return jsonify(post.to_dict()), 200
 
-  #Update a Post
+#Update a Post
 @post_bp.route('/<post_id>', methods =['PATCH'])
 def update_post(post_id):
     post=validate_post(post_id)
     request_body=request.get_json()
-    
     post.title=request_body['title']
     post.description=request_body['description']
-    post.image=request_body['image']
     post.pet_id=request_body['pet_id']
-    post.user_id=request_body['user_id']
+    post.human_id=request_body['human_id']
     
     db.session.commit()
     return jsonify(f'Post {post_id} updated'), 200
 
-
+#update pet 
+@post_bp.route('/<post_id>', methods =['PATCH'])
+def upload(post_id):
+    post=validate_post(post_id)
+    post.image = request.files['image']
+    db.session.commit()
+    return jsonify(f'Post image updated'), 200
 
 #Delete Post
 @post_bp.route('/<post_id>', methods =['DELETE'])

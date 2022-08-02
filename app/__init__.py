@@ -18,14 +18,14 @@ def create_app():
 
 
     from app.models.post import Post
-    from app.models.user import User
+    from app.models.human import Human
     from app.models.pet import Pet
 
     from .pet_routes import pet_bp
     app.register_blueprint(pet_bp)
 
-    from .user_routes import user_bp
-    app.register_blueprint(user_bp)
+    from .human_routes import human_bp
+    app.register_blueprint(human_bp)
 
     from .post_routes import post_bp
     app.register_blueprint(post_bp)

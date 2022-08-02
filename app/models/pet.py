@@ -4,15 +4,16 @@ class Pet(db.Model):
     pet_id=db.Column(db.Integer, primary_key=True, autoincrement=True)
     pet_name = db.Column(db.String)
     detail = db.Column(db.String)
-    photo = db.Column(db.bytea)
+    photo = db.Column(db.LargeBinary, nullable=True)
+    type = db.Column(db.String)
     posts= db.relationship('Post', back_populates='pet', lazy=True)
-    user_id = db.Colummn(db.Integer, db.ForeingKey('user.user_id'), nullable=False)
-    user = db.relationship('User', back_populates='user', lazy=True)
+    human_id = db.Column(db.Integer, db.ForeignKey('human.human_id'), nullable=False)
+    human = db.relationship('Human', back_populates='pets', lazy=True)
 
-def to_dict(self):
+    def to_dict(self):
         return {
-            'id': self.id,
-            'name': self.name,
+            'id': self.pet_id,
+            'name': self.pet_name,
             'detail': self.detail,
             'photo':self.photo,
             'type':self.type
