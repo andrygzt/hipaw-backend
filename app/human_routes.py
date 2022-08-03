@@ -62,13 +62,17 @@ def create_post(human_id):
     human = validate_human(human_id)
 
     request_body= request.get_json()
+    if request_body['is_claim'] == False:
+        request_body['reference_post_id']= None
+
     new_post=Post(
         title=request_body['title'],
         description=request_body['description'],
-        image=request_body['image'],
         pet_id=request_body['pet_id'],
         is_claim=request_body['is_claim'],
-        reference_post_id=request_body['reference_post_id']
+        reference_post_id=request_body['reference_post_id'],
+        human_id=human_id
+
         )
 
     db.session.add(new_post)
@@ -96,7 +100,7 @@ def get_human_pets(human_id):
     
     return jsonify({
         'human_id':human.human_id,
-        'name':human.name,
+        'name':human.human_name,
         'pets':pets_response
         }), 200
 

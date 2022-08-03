@@ -1,5 +1,6 @@
 from app import db
 
+
 class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True, autoincrement =True)
     title = db.Column(db.String)
@@ -19,7 +20,7 @@ class Post(db.Model):
             'id' : self.post_id,
             'title': self.title,
             'description': self.description,
-            'image': self.image,
+            'image': f"posts/images/{self.post_id}.jpg",
             'pet_id': self.pet_id,
             'human_id': self.human_id,
             'is_claim':self.is_claim,

@@ -15,6 +15,6 @@ class Pet(db.Model):
             'id': self.pet_id,
             'name': self.pet_name,
             'detail': self.detail,
-            'photo':self.photo,
+            'photo':f"pets/images/{self.pet_id}.jpg",
             'type':self.type
         }

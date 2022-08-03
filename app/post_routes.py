@@ -6,6 +6,7 @@ from app.models.post import Post
 from .human_routes import Human
 from .pet_routes import Pet
 
+
 post_bp = Blueprint('post_bp', __name__, url_prefix='/posts')
 
 
@@ -39,6 +40,15 @@ def get_post(post_id):
     post= validate_post(post_id)
     return jsonify(post.to_dict()), 200
 
+#GET file from post
+@post_bp.route('/images/<post_id>.jpg', methods =['GET'])
+def get_image(post_id):
+    post= validate_post(post_id)
+    image_binary = post.image
+    response = make_response(image_binary)
+    response.headers.set('Content-Type', 'image/jpeg')
+    return response
+
 #Update a Post
 @post_bp.route('/<post_id>', methods =['PATCH'])
 def update_post(post_id):
@@ -52,11 +62,11 @@ def update_post(post_id):
     db.session.commit()
     return jsonify(f'Post {post_id} updated'), 200
 
-#update pet 
-@post_bp.route('/<post_id>', methods =['PATCH'])
+#update post 
+@post_bp.route('/<post_id>/photo', methods =['PATCH'])
 def upload(post_id):
     post=validate_post(post_id)
-    post.image = request.files['image']
+    post.image= request.files['image'].read()
     db.session.commit()
     return jsonify(f'Post image updated'), 200
 
