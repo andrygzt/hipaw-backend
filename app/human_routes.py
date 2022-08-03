@@ -70,9 +70,10 @@ def create_post(human_id):
         description=request_body['description'],
         pet_id=request_body['pet_id'],
         is_claim=request_body['is_claim'],
+        category=request_body['category'],
+        post_status="Active",
         reference_post_id=request_body['reference_post_id'],
         human_id=human_id
-
         )
 
     db.session.add(new_post)
@@ -83,8 +84,10 @@ def create_post(human_id):
         'post_id': new_post.post_id,
         'title': new_post.title,
         'image':new_post.image,
+        'status':new_post.post_status,
         'pet_id':new_post.pet_id,
         'human_id': human.human_id,
+        'category':new_post.category,
         'is_claim':new_post.is_claim,
         'reference_post_id':new_post.reference_post_id
     }), 201

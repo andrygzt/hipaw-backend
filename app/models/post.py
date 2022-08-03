@@ -6,6 +6,8 @@ class Post(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.String)
     image = db.Column(db.LargeBinary, nullable=True)
+    category = db.Column(db.String)
+    post_status = db.Column(db.String)
     human = db.relationship('Human', back_populates='posts', lazy=True)
     human_id = db.Column(db.Integer, db.ForeignKey('human.human_id'), nullable=False)
     pet= db.relationship('Pet', back_populates='posts', lazy=True)
@@ -18,6 +20,8 @@ class Post(db.Model):
     def to_dict(self):
         return {
             'id' : self.post_id,
+            'category':self.category,
+            'status':self.post_status,
             'title': self.title,
             'description': self.description,
             'image': f"posts/images/{self.post_id}.jpg",

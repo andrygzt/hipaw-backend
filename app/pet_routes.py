@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify, make_response, abort
 from sqlalchemy import func
 from app import db
 from app.models.pet import Pet
-from .human_routes import Human
+
 
 pet_bp = Blueprint('pet_bp', __name__, url_prefix='/pets')
 
@@ -28,7 +28,7 @@ def get_human_pets(pet_id):
     return jsonify(pet.to_dict()), 200
 
 #GET file from pet
-@pet_bp.route('/images/<pet_id>.jpg', methods =['GET'])
+@pet_bp.route('/photo/<pet_id>.jpg', methods =['GET'])
 def get_image(pet_id):
     pet= validate_pet(pet_id)
     image_binary = pet.photo
@@ -49,7 +49,7 @@ def update_post(pet_id):
     db.session.commit()
     return jsonify(f'Pet {pet_id} updated'), 200
 
-#update pet 
+#update file to pet 
 @pet_bp.route('/<pet_id>/photo', methods =['PATCH'])
 def upload(pet_id):
     pet=validate_pet(pet_id)

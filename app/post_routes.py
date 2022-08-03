@@ -56,13 +56,15 @@ def update_post(post_id):
     request_body=request.get_json()
     post.title=request_body['title']
     post.description=request_body['description']
+    post.category=request_body['category']
+    post.post_status=request_body['status']
     post.pet_id=request_body['pet_id']
     post.human_id=request_body['human_id']
     
     db.session.commit()
     return jsonify(f'Post {post_id} updated'), 200
 
-#update post 
+#update file post 
 @post_bp.route('/<post_id>/photo', methods =['PATCH'])
 def upload(post_id):
     post=validate_post(post_id)
