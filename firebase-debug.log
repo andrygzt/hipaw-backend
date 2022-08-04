@@ -1,0 +1,21 @@
+[debug] [2022-08-04T05:48:27.503Z] ----------------------------------------------------------------------
+[debug] [2022-08-04T05:48:27.504Z] Command:       /usr/local/Cellar/node/18.7.0/bin/node /usr/local/bin/firebase init
+[debug] [2022-08-04T05:48:27.505Z] CLI Version:   11.4.2
+[debug] [2022-08-04T05:48:27.505Z] Platform:      darwin
+[debug] [2022-08-04T05:48:27.505Z] Node Version:  v18.7.0
+[debug] [2022-08-04T05:48:27.506Z] Time:          Wed Aug 03 2022 22:48:27 GMT-0700 (Pacific Daylight Time)
+[debug] [2022-08-04T05:48:27.506Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-08-04T05:48:27.512Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-08-04T05:48:27.512Z] > authorizing via signed-in user (andrygzt@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/andiegarcia/ada/hipaw/hipaw-backend
+
