@@ -27,7 +27,8 @@ def validate_human(human_id):
 def create_human():
     request_body = request.get_json()
     new_human = Human(human_name=request_body['name'],
-                    location=request_body['location'])
+                    location=request_body['location'],
+                    human_email=request_body['email'])
 
     db.session.add(new_human)
     db.session.commit()
@@ -48,6 +49,8 @@ def create_pet(human_id):
     new_pet = Pet(pet_name=request_body['name'],
                     detail=request_body['detail'],
                     type=request_body['type'],
+                    age=request_body['age'],
+                    size=request_body['size'],
                     human_id=human_id)
 
     db.session.add(new_pet)

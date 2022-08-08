@@ -45,6 +45,8 @@ def update_post(pet_id):
     pet.detail=request_body['detail']
     pet.type=request_body['type']
     pet.human_id=request_body['human_id']
+    pet.age=request_body['age']
+    pet.size=request_body['size']
     
     db.session.commit()
     return jsonify(f'Pet {pet_id} updated'), 200

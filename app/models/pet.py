@@ -9,6 +9,8 @@ class Pet(db.Model):
     posts= db.relationship('Post', back_populates='pet', lazy=True)
     human_id = db.Column(db.Integer, db.ForeignKey('human.human_id'), nullable=False)
     human = db.relationship('Human', back_populates='pets', lazy=True)
+    age = db.Column(db.String)
+    size = db.Column(db.String)
 
     def to_dict(self):
         return {
@@ -16,5 +18,7 @@ class Pet(db.Model):
             'name': self.pet_name,
             'detail': self.detail,
             'photo':f"pets/images/{self.pet_id}.jpg",
-            'type':self.type
+            'type':self.type,
+            'age': self.age,
+            'size':self.size
         }
