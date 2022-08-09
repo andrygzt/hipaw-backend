@@ -14,8 +14,8 @@ class Post(db.Model):
     pet_id = db.Column(db.Integer, db.ForeignKey('pet.pet_id'), nullable=False)
     is_claim=db.Column(db.Boolean, nullable=False)
     reference_post_id = db.Column(db.Integer, db.ForeignKey('post.post_id'), nullable=True)
-    reference_post = db.relationship('Post', back_populates='claim', lazy=True)
-    claim= db.relationship('Post', lazy=True)
+    reference_post = db.relationship('Post', backref='claims', remote_side=post_id)
+
 
     def to_dict(self):
         return {
@@ -26,8 +26,10 @@ class Post(db.Model):
             'description': self.description,
             'image': f"posts/images/{self.post_id}.jpg",
             'pet_id': self.pet_id,
+            'pet':self.pet.to_dict(),
             'human_id': self.human_id,
             'is_claim':self.is_claim,
-            'reference_port_id':self.reference_post_id,
+            'reference_post_id':self.reference_post_id,
+            'claims': [claim.to_dict() for claim in self.claims] #if len(self.claimss)>0 else []
         }
         

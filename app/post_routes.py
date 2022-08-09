@@ -38,7 +38,11 @@ def get_all_posts():
 @post_bp.route('/<post_id>', methods =['GET'])
 def get_post(post_id):
     post= validate_post(post_id)
-    return jsonify(post.to_dict()), 200
+    response = post.to_dict()
+    if post.reference_post:
+        response["reference_post"]=post.reference_post.to_dict()
+        response["reference_post"]['claims']=None
+    return jsonify(response), 200
 
 #GET file from post
 @post_bp.route('/images/<post_id>.jpg', methods =['GET'])
