@@ -26,8 +26,7 @@ def validate_post(post_id):
 #GET all posts
 @post_bp.route('', methods =['GET'])
 def get_all_posts():
-    posts=Post.query.all()
-
+    posts=Post.query.filter_by(is_claim=False).all()
     posts_response =[]
     for post in posts:
         posts_response.append(post.to_dict())
@@ -43,6 +42,7 @@ def get_post(post_id):
         response["reference_post"]=post.reference_post.to_dict()
         response["reference_post"]['claims']=None
     return jsonify(response), 200
+
 
 #GET file from post
 @post_bp.route('/images/<post_id>.jpg', methods =['GET'])

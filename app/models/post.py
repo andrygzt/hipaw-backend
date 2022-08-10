@@ -30,6 +30,6 @@ class Post(db.Model):
             'human_id': self.human_id,
             'is_claim':self.is_claim,
             'reference_post_id':self.reference_post_id,
-            'claims': [claim.to_dict() for claim in self.claims] #if len(self.claimss)>0 else []
+            'claims': [claim.to_dict() for claim in self.claims] 
         }
         
