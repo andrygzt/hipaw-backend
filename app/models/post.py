@@ -25,7 +25,6 @@ class Post(db.Model):
             'title': self.title,
             'description': self.description,
             'image': f"posts/images/{self.post_id}.jpg",
-            'pet_id': self.pet_id,
             'pet':self.pet.to_dict(),
             'human_id': self.human_id,
             'is_claim':self.is_claim,
