@@ -41,6 +41,12 @@ def get_human(human_id):
     human= validate_human(human_id)
     return jsonify(human.to_dict()), 200
 
+#GET human by email
+@human_bp.route('/email/<human_email>', methods =['GET'])
+def get_human_by_email(human_email):
+    human = Human.query.filter_by(human_email=human_email).first()
+    return jsonify(human.to_dict() if human else None), 200
+
 #Create a pet
 @human_bp.route('/<human_id>/pet', methods =['POST'])
 def create_pet(human_id):
