@@ -63,7 +63,7 @@ def create_pet(human_id):
     human.pets.append(new_pet)
     db.session.commit()
 
-    return make_response(f'New Pet: "{new_pet.pet_name}" succesfully created.  YAY!', 201)
+    return jsonify(new_pet.to_dict()), 201
 
 #Create a Post
 @human_bp.route('/<human_id>/post', methods =['POST'])
