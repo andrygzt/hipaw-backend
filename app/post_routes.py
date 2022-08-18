@@ -76,6 +76,23 @@ def upload(post_id):
     db.session.commit()
     return jsonify(f'Post image updated'), 200
 
+#Accept a claim
+@post_bp.route('/<claim_id>/accept', methods =['PATCH'])
+def accept_claim(claim_id):
+    print('claim_id', claim_id)
+    accepted_claim=validate_post(claim_id)
+    reference_post=accepted_claim.reference_post
+    all_claims=reference_post.claims
+    for claim in all_claims:
+        print(claim.post_id, claim_id)
+        if int(claim.post_id) == int(claim_id):
+            claim.post_status="Accepted"
+        else:
+            claim.post_status="Rejected"
+    reference_post.post_status="Claimed"
+    db.session.commit()
+    return jsonify(f'Claim {claim_id} accepted'), 200
+
 #Delete Post
 @post_bp.route('/<post_id>', methods =['DELETE'])
 def delete_post(post_id):
