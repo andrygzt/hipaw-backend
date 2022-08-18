@@ -33,7 +33,7 @@ def create_human():
     db.session.add(new_human)
     db.session.commit()
 
-    return make_response(f'New User: "{new_human.human_id}" succesfully created.  YAY!', 201)
+    return jsonify(new_human.to_dict()), 201
 
 #GET human
 @human_bp.route('/<human_id>', methods =['GET'])
