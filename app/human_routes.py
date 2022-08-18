@@ -123,12 +123,17 @@ def get_human_post(human_id):
 
     posts_response =[]
     for post in human.posts:
-        posts_response.append(post.to_dict())
+        if post.is_claim:
+            post_dict = post.to_dict()
+            post_dict['reference_post'] = post.reference_post.to_dict()
+            posts_response.append(post_dict)
+        else:
+            posts_response.append(post.to_dict())
     
     return jsonify({
         'human_id':human.human_id,
         'name':human.human_name,
-        'peosts':posts_response
+        'posts':posts_response
         }), 200
 
 
