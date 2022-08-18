@@ -116,6 +116,22 @@ def get_human_pets(human_id):
         'pets':pets_response
         }), 200
 
+#GET all post from human
+@human_bp.route('/<human_id>/posts', methods =['GET'])
+def get_human_pets(human_id):
+    human = validate_human(human_id)
+
+    posts_response =[]
+    for post in human.posts:
+        posts_response.append(post.to_dict())
+    
+    return jsonify({
+        'human_id':human.human_id,
+        'name':human.human_name,
+        'peosts':posts_response
+        }), 200
+
+
 #Delete human
 @human_bp.route('/<human_id>', methods =['DELETE'])
 def delete_human(human_id):
