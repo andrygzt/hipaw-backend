@@ -118,7 +118,7 @@ def get_human_pets(human_id):
 
 #GET all post from human
 @human_bp.route('/<human_id>/posts', methods =['GET'])
-def get_human_pets(human_id):
+def get_human_post(human_id):
     human = validate_human(human_id)
 
     posts_response =[]
